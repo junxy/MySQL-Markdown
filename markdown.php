@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	try {
 
-		$DB = new PDO(sprintf("mysql:host=%s;dbname=%s", $config['host'], $config['name']), $config['user'], $config['password']);
+		$DB = new PDO(sprintf("mysql:host=%s;dbname=%s", $config['host'], $config['name']), $config['user'], $config['password'],
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
 		$table = $config['name'];
 		$query = $DB->prepare('SELECT table_name, table_comment FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = :table');
